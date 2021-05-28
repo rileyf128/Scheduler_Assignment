@@ -1,24 +1,18 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Using postgresql instead of sqlite3. 
+if rake tasks must be ran they are "rake reate_location", "rake create_technician",and "rake create_workorder".
 
-Things you may want to cover:
+Idea:
+Load the CSV data into postgres tables. 
+Work orders belong to both technicians and locations. 
+First row of the table is filled with the names of each technician once.
+Index page iterates for each hour included in the data set (6 - 15) and creates the time column first.
+Loops through work orders to find who has an appointment in that iterations time slot. 
+Series of conditionals then goes through each technician. 
+If they have an appointment at the time then that information is taken from the database and stored in the table. 
+If they do not have an appointment then the previous job and the next job is found and the difference is calculated and stored in an alert onclick. 
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Ways to improve:
+There is a fair amount of basically repeated code as I was having a hard time figuring out where to put helper functions.
+It is not extendable in it's current state *not fin*
