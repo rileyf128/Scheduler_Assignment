@@ -1,0 +1,123 @@
+<html>
+	<head>
+		<%= stylesheet_link_tag 'application.css' %>
+	</head>
+	<body id="grad">
+		<h1>Daily Scheduler</h1>
+		<table class="darkTable" id="my_tbl">
+			<tr>
+				<td> Times </td>
+				<% @work_orders.map(&:technician_name).uniq.each do |w| %>
+					<td><%= w %> </td>
+				<% end %>
+			</tr>
+			<% breaks_1 = breaks_2 = breaks_3 = breaks_4 = [] %>
+			<% for i in 6..14 do %>	
+				<tr>
+					<td> <%=i%>:00 </td>
+					<% has_apt_1 = has_apt_2 = has_apt_3 = has_apt_4 = 0 %>
+					<% @work_orders.each do |w| %>			
+						<% if w.time.hour - i == 0%>
+							<% if w.technician_id == 1 %>
+								<% has_apt_1 = w %>
+							<% elsif w.technician_id == 2 %>
+								<% has_apt_2 = w %>
+							<% elsif w.technician_id == 3 %>
+								<% has_apt_3 = w %>
+							<% else %>
+								<% has_apt_4 = w %>
+							<% end %>
+						<% end %>	
+					<% end %>
+					<% if has_apt_1 == 0 %>
+						<% next_job = @work_orders.find { |w| w.time.hour > i && w.technician_id == 1} %>
+						<% prev_job = @work_orders.select { |w| w.time.hour <  next_job.time.hour && w.technician_id == 1 } %>
+						<% break_time_hours = next_job.time.hour - prev_job[-1].time.hour %>
+						<% break_time_minutes = next_job.time.min - prev_job[-1].time.min %>
+						<% breaks_1[i] = break_time_hours.to_s + " hours and " + break_time_minutes.to_s + " minutes until the next appointment"%>
+						<td onclick= "alert('<%= breaks_1[i]%>')" > </td>	
+					<% else %> 
+						<td> <%= has_apt_1.location.name %>  </br>
+									<%= has_apt_1.location.city %> </br>
+									<%= has_apt_1.technician.name %> </br>
+									<%= has_apt_1.time.strftime("%I:%M")%>  </br>
+									$<%= has_apt_1.price %>  </br>
+								</td>
+					<% end %>
+					<% if has_apt_2 == 0 %>
+						<% next_job = @work_orders.find { |w| w.time.hour > i && w.technician_id == 2} %>
+						<% if next_job == nil %>
+							<% breaks_2[i] = "All appointments done" %>
+						<% else %>
+							<% prev_job = @work_orders.select { |w| w.time.hour <  i && w.technician_id == 2 } %>
+							<% if prev_job == [] %>
+								<% breaks_2[i] = "No appointments yet" %>
+							<% else %>
+								<% break_time_hours = next_job.time.hour - prev_job[-1].time.hour %>
+								<% break_time_minutes = next_job.time.min - prev_job[-1].time.min %>
+								<% break_time_minutes = break_time_minutes.abs() %>
+								<% breaks_2[i] = break_time_hours.to_s + " hours and " + break_time_minutes.to_s + " minutes until the next appointment"%>
+								<% end %>
+						<% end %>
+							<td onclick= "alert('<%= breaks_2[i]%>')" > </td>
+					<% else %> 
+						<td> <%= has_apt_2.location.name %>  </br>
+									<%= has_apt_2.location.city %> </br>
+									<%= has_apt_2.technician.name %> </br>
+									<%= has_apt_2.time.strftime("%I:%M")%>  </br>
+									$<%= has_apt_2.price %>  </br>
+								</td>				
+					<% end %>
+					<% if has_apt_3 == 0 %>
+						<% next_job = @work_orders.find { |w| w.time.hour > i && w.technician_id == 3} %>
+						<% if next_job == nil %>
+							<% breaks_3[i] = "All appointments done" %>
+						<% else %>
+							<% prev_job = @work_orders.select { |w| w.time.hour <  i && w.technician_id == 3 } %>
+							<% if prev_job == [] %>
+								<% breaks_3[i] = "No appointments yet" %>
+							<% else %>
+								<% break_time_hours = next_job.time.hour - prev_job[-1].time.hour %>
+								<% break_time_minutes = next_job.time.min - prev_job[-1].time.min %>
+								<% break_time_minutes = break_time_minutes.abs() %>
+								<% breaks_3[i] = break_time_hours.to_s + " hours and " + break_time_minutes.to_s + " minutes until the next appointment"%>
+								<% end %>
+						<% end %>
+							<td onclick= "alert('<%= breaks_3[i]%>')" > </td>
+					<% else %> 
+						<td> <%= has_apt_3.location.name %>  </br>
+									<%= has_apt_3.location.city %> </br>
+									<%= has_apt_3.technician.name %> </br>
+									<%= has_apt_3.time.strftime("%I:%M")%>  </br>
+									$<%= has_apt_3.price %>  </br>
+								</td>				
+					<% end %>
+					<% if has_apt_4 == 0 %>
+						<% next_job = @work_orders.find { |w| w.time.hour > i && w.technician_id == 4} %>
+						<% if next_job == nil %>
+							<% breaks_4[i] = "All appointments done" %>
+						<% else %>
+							<% prev_job = @work_orders.select { |w| w.time.hour <  i && w.technician_id == 4 } %>
+							<% if prev_job == [] %>
+								<% breaks_4[i] = "No appointments yet" %>
+							<% else %>
+								<% break_time_hours = next_job.time.hour - prev_job[-1].time.hour %>
+								<% break_time_minutes = next_job.time.min - prev_job[-1].time.min %>
+								<% break_time_minutes = break_time_minutes.abs() %>
+								<% breaks_4[i] = break_time_hours.to_s + " hours and " + break_time_minutes.to_s + " minutes until the next appointment"%>
+								<% end %>
+						<% end %>
+							<td onclick= "alert('<%= breaks_4[i]%>')" > </td>
+					<% else %> 
+						<td> <%= has_apt_4.location.name %>  </br>
+									<%= has_apt_4.location.city %> </br>
+									<%= has_apt_4.technician.name %> </br>
+									<%= has_apt_4.time.strftime("%I:%M")%>  </br>
+									$<%= has_apt_4.price %>  </br>
+								</td>				
+					<% end %>
+				</tr>
+			<% end %>
+		</table> 
+	</body>
+</html>
