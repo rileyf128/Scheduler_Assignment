@@ -3,7 +3,17 @@
 Ruby on rails site that loads CSV data about work orders, technicians, and locations into a database and displays them in an HTML table. 
 
 Using postgresql instead of sqlite3. 
-if rake tasks must be ran they are "rake create_location", "rake create_technician",and "rake create_workorder".
+
+Ruby version = 2.7.1
+
+Rails version = 6.1.3
+
+postgresql version = 1.1
+
+Puma version = 5.0
+
+rake tasks are "rake create_location", "rake create_technician",and "rake create_workorder".
+
 
 Idea:
 Load the CSV data into postgres tables. 
