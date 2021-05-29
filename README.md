@@ -15,4 +15,4 @@ If they do not have an appointment then the previous job and the next job is fou
 
 Ways to improve:
 There is a fair amount of basically repeated code as I was having a hard time figuring out where to put helper functions.
-It is not extendable in it's current state *not fin*
+It is not extendable in it's current state, would need to make a more generalized helper function to check for an appointment, store the appointment details, and calculate time difference between jobs. 
