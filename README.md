@@ -12,7 +12,7 @@ postgresql version = 1.1
 
 Puma version = 5.0
 
-rake tasks are "rake create_location", "rake create_technician",and "rake create_workorder".
+rake tasks are "rake create_location", "rake create_technician", and "rake create_workorder".
 
 
 Idea:
